@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
         }
         
         body {
@@ -49,12 +49,17 @@
         }
         
         .profile-img {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             border: 4px solid white;
             object-fit: cover;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
         }
         
         .title {
@@ -115,6 +120,11 @@
             margin-bottom: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-left: 5px solid #ff80ab;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
         }
         
         .card h2 {
@@ -131,6 +141,11 @@
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        
+        .post:hover {
+            background: #ffebf1;
         }
         
         .post h3 {
@@ -168,6 +183,7 @@
         .tag:hover {
             background: #ffc2d6;
             cursor: pointer;
+            transform: scale(1.05);
         }
         
         /* 颜文字区域 */
@@ -228,6 +244,24 @@
                 justify-content: center;
             }
         }
+        
+        /* 波奇酱特色元素 */
+        .guitar-emoji {
+            display: inline-block;
+            animation: rock 2s infinite alternate;
+        }
+        
+        @keyframes rock {
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(10deg); }
+        }
+        
+        .bocchi-text {
+            background: linear-gradient(45deg, #ff6b9d, #ff4d87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -237,10 +271,10 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <img src="https://i.pravatar.cc/150?img=5" alt="波奇酱" class="profile-img">
+                <img src="https://i.ibb.co/7y1v2zL/bocchi.png" alt="波奇酱" class="profile-img">
                 <div class="title">
-                    <h1>波奇酱的动漫小窝 (´• ω •`)ﾉ</h1>
-                    <p>欢迎来到我的粉色世界！</p>
+                    <h1>波奇酱的动漫小窝 <span class="guitar-emoji">🎸</span></h1>
+                    <p>欢迎来到我的粉色世界！(´• ω •`)ﾉ</p>
                 </div>
             </div>
         </header>
@@ -260,17 +294,24 @@
                     <h2><i class="fas fa-pencil-alt"></i> 最新动态</h2>
                     
                     <div class="post">
-                        <h3>今天的吉他练习 ♪</h3>
-                        <div class="post-date">2023年10月25日</div>
+                        <h3>今天的吉他练习 <span class="guitar-emoji">🎸</span></h3>
+                        <div class="post-date">2025年3月15日</div>
                         <p>练习了新的和弦进行，手指好痛...但是有进步！(>_<)</p>
                         <p>希望下次演出不会紧张到晕倒...</p>
                     </div>
                     
                     <div class="post">
                         <h3>买了新的动漫周边 ☆</h3>
-                        <div class="post-date">2023年10月23日</div>
+                        <div class="post-date">2025年3月12日</div>
                         <p>入手了超可爱的吉他拨片 collection！(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</p>
                         <p>虽然花光了零用钱，但是值得！</p>
+                    </div>
+                    
+                    <div class="post">
+                        <h3>乐队练习日记</h3>
+                        <div class="post-date">2025年3月8日</div>
+                        <p>今天和结束乐队一起练习了新曲目，大家都很努力！</p>
+                        <p>我...我虽然还是有点紧张，但比之前好多了！(｡･ω･｡)</p>
                     </div>
                 </div>
                 
@@ -279,16 +320,23 @@
                     
                     <div class="post">
                         <h3>孤独摇滚演唱会心得</h3>
-                        <div class="post-date">2023年10月15日</div>
+                        <div class="post-date">2025年2月28日</div>
                         <p>第一次在Livehouse演出，虽然紧张但超开心！</p>
                         <p>观众们都很热情，没有我想象的那么可怕 (｡･ω･｡)</p>
                     </div>
                     
                     <div class="post">
                         <h3>我的吉他设备介绍</h3>
-                        <div class="post-date">2023年10月10日</div>
+                        <div class="post-date">2025年2月20日</div>
                         <p>给大家看看我的装备清单~</p>
                         <p>效果器、音箱、吉他...都是我的宝贝！</p>
+                    </div>
+                    
+                    <div class="post">
+                        <h3>社恐如何上台表演</h3>
+                        <div class="post-date">2025年2月15日</div>
+                        <p>分享一些我克服舞台恐惧的方法...</p>
+                        <p>虽然还不是完全克服，但已经在进步了！</p>
                     </div>
                 </div>
             </main>
@@ -296,7 +344,7 @@
             <aside class="sidebar">
                 <div class="card profile">
                     <h2><i class="fas fa-user"></i> 关于我</h2>
-                    <p>我是波奇酱，喜欢吉他、动漫和所有粉色的事物！</p>
+                    <p>我是<span class="bocchi-text">后藤一里</span>，喜欢吉他、动漫和所有粉色的事物！</p>
                     <p>有点社恐，但正在努力克服中... (;´∀`)</p>
                     
                     <div class="kaomoji">(´• ω •`)ﾉ</div>
@@ -307,6 +355,7 @@
                         <span class="tag">摇滚</span>
                         <span class="tag">粉色</span>
                         <span class="tag">社恐</span>
+                        <span class="tag">结束乐队</span>
                     </div>
                 </div>
                 
@@ -316,22 +365,34 @@
                     <div class="kaomoji">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
                     <div class="kaomoji">(｡･ω･｡)</div>
                     <div class="kaomoji">(╯°□°）╯</div>
+                    <div class="kaomoji">(;´∀`)</div>
                 </div>
                 
                 <div class="card">
                     <h2><i class="fas fa-music"></i> 最近在听</h2>
                     <ul>
-                        <li>青春Complex - 結束バンド</li>
-                        <li>転がる岩、君に朝が降る - 結束バンド</li>
-                        <li>フラッシュバッカー - 結束バンド</li>
-                        <li>Distortion!! - 結束バンド</li>
+                        <li><i class="fas fa-play-circle"></i> 青春Complex - 結束バンド</li>
+                        <li><i class="fas fa-play-circle"></i> 転がる岩、君に朝が降る - 結束バンド</li>
+                        <li><i class="fas fa-play-circle"></i> フラッシュバッカー - 結束バンド</li>
+                        <li><i class="fas fa-play-circle"></i> Distortion!! - 結束バンド</li>
+                        <li><i class="fas fa-play-circle"></i> あのバンド - 結束バンド</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-calendar"></i> 2025年日程</h2>
+                    <ul>
+                        <li>3月20日 - 乐队练习</li>
+                        <li>3月25日 - 录音室录制</li>
+                        <li>4月5日 - 线下Live演出</li>
+                        <li>4月15日 - 动漫展览会</li>
                     </ul>
                 </div>
             </aside>
         </div>
         
         <footer>
-            <p>© 2023 波奇酱的动漫小窝 - 粉色幻想天地</p>
+            <p>© 2025 波奇酱的动漫小窝 - 粉色幻想天地</p>
             <p>每一天都要加油哦~ (๑•̀ㅂ•́)و✧</p>
         </footer>
     </div>
@@ -380,7 +441,21 @@
             profileImg.addEventListener('click', () => {
                 alert('波奇酱: 欢、欢迎来到我的博客...（小声）(ﾉ∀`*)');
             });
+            
+            // 随机颜文字效果
+            const kaomojis = document.querySelectorAll('.kaomoji');
+            kaomojis.forEach(kaomoji => {
+                kaomoji.addEventListener('click', () => {
+                    const animations = ['bounce', 'spin', 'grow'];
+                    const randomAnim = animations[Math.floor(Math.random() * animations.length)];
+                    
+                    kaomoji.style.animation = `${randomAnim} 0.5s`;
+                    setTimeout(() => {
+                        kaomoji.style.animation = '';
+                    }, 500);
+                });
+            });
         });
     </script>
 </body>
-</html>               
+</html>
