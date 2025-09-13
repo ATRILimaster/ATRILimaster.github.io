@@ -6,322 +6,331 @@
     <title>波奇酱的小窝 - 个人博客</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        :root {
-            --main-bg-color: #1a1a2e;
-            --secondary-bg-color: #16213e;
-            --accent-color: #822caf;
-            --pink-color: #e94584;
-            --text-color: #f0f0f0;
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--main-bg-color), var(--secondary-bg-color));
-            color: var(--text-color);
-            min-height: 100vh;
-            overflow-x: hidden;
-            background-attachment: fixed;
-        }
-        
-        /* 导航栏样式 */
-        .navbar {
-            background-color: rgba(26, 26, 46, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--pink-color);
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-        
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .nav-links a:hover {
-            color: var(--pink-color);
-        }
-        
-        /* 主容器样式 */
-        .container {
-            max-width: 1200px;
-            margin: 80px auto 30px;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 7fr 3fr;
-            gap: 25px;
-        }
-        
-        /* 博客内容样式 */
-        .blog-header {
-            background: linear-gradient(45deg, var(--accent-color), var(--pink-color));
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .blog-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .blog-header p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* 卡片样式 */
-        .card {
-            background: rgba(26, 26, 46, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card h2 {
-            color: var(--pink-color);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        /* 文章网格 */
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .post-card {
-            background: rgba(34, 34, 60, 0.7);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-        
-        .post-card:hover {
-            transform: scale(1.03);
-        }
-        
-        .post-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-        
-        .post-content {
-            padding: 15px;
-        }
-        
-        .post-date {
-            color: #b0b0b0;
-            font-size: 0.85rem;
-            margin: 5px 0;
-        }
-        
-        /* 侧边栏样式 */
-        .sidebar {
-            position: sticky;
-            top: 90px;
-        }
-        
-        .profile-card {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--pink-color);
-            margin: 0 auto 15px;
-        }
-        
-        .profile-name {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            color: var(--pink-color);
-        }
-        
-        .profile-bio {
-            font-size: 0.9rem;
-            color: #ccc;
-            margin-bottom: 15px;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .social-links a {
-            color: var(--text-color);
-            font-size: 1.2rem;
-            transition: color 0.3s;
-        }
-        
-        .social-links a:hover {
-            color: var(--pink-color);
-        }
-        
-        /* 标签云 */
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .tag {
-            background: rgba(130, 44, 175, 0.3);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: background 0.3s;
-        }
-        
-        .tag:hover {
-            background: rgba(130, 44, 175, 0.5);
-            cursor: pointer;
-        }
-        
-        /* 颜文字区域 */
-        .kaomoji-section {
-            background: rgba(233, 69, 132, 0.2);
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        .kaomoji {
-            font-size: 2rem;
-            margin: 10px 0;
-            display: block;
-        }
-        
-        /* 页脚样式 */
-        footer {
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-            background: rgba(26, 26, 46, 0.8);
-            backdrop-filter: blur(10px);
-        }
-        
-        /* 爱心样式 */
-        .heart {
-            position: absolute;
-            pointer-events: none;
-            animation: float 6s ease-in infinite;
-            opacity: 0.7;
-            font-size: 20px;
-            color: var(--pink-color);
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 900px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                position: relative;
-                top: 0;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .navbar {
-                flex-direction: column;
-                padding: 10px;
-            }
-            
-            .nav-links {
-                margin-top: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .container {
-                margin-top: 120px;
-            }
-            
-            .blog-header h1 {
-                font-size: 2rem;
-            }
-        }
+        /* 这里将放置CSS样式 */
     </style>
 </head>
+<body>
+    <!-- 这里将放置页面内容 -->
+    
+    <script>
+        // 这里将放置JavaScript代码
+    </script>
+</body>
+</html>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --main-bg-color: #1a1a2e;
+    --secondary-bg-color: #16213e;
+    --accent-color: #822caf;
+    --pink-color: #e94584;
+    --text-color: #f0f0f0;
+}
+
+body {
+    background: linear-gradient(135deg, var(--main-bg-color), var(--secondary-bg-color));
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-attachment: fixed;
+}
+
+/* 导航栏样式 */
+.navbar {
+    background-color: rgba(26, 26, 46, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--pink-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-links a:hover {
+    color: var(--pink-color);
+}
+
+/* 主容器样式 */
+.container {
+    max-width: 1200px;
+    margin: 80px auto 30px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    gap: 25px;
+}
+
+/* 博客内容样式 */
+.blog-header {
+    background: linear-gradient(45deg, var(--accent-color), var(--pink-color));
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.blog-header p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* 卡片样式 */
+.card {
+    background: rgba(26, 26, 46, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h2 {
+    color: var(--pink-color);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 文章网格 */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.post-card {
+    background: rgba(34, 34, 60, 0.7);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.post-card:hover {
+    transform: scale(1.03);
+}
+
+.post-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.post-content {
+    padding: 15px;
+}
+
+.post-date {
+    color: #b0b0b0;
+    font-size: 0.85rem;
+    margin: 5px 0;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    position: sticky;
+    top: 90px;
+}
+
+.profile-card {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--pink-color);
+    margin: 0 auto 15px;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: var(--pink-color);
+}
+
+.profile-bio {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--pink-color);
+}
+
+/* 标签云 */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.tag {
+    background: rgba(130, 44, 175, 0.3);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.tag:hover {
+    background: rgba(130, 44, 175, 0.5);
+    cursor: pointer;
+}
+
+/* 颜文字区域 */
+.kaomoji-section {
+    background: rgba(233, 69, 132, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.kaomoji {
+    font-size: 2rem;
+    margin: 10px 0;
+    display: block;
+}
+
+/* 页脚样式 */
+footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+    background: rgba(26, 26, 46, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+/* 爱心样式 */
+.heart {
+    position: absolute;
+    pointer-events: none;
+    animation: float 6s ease-in infinite;
+    opacity: 0.7;
+    font-size: 20px;
+    color: var(--pink-color);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .nav-links {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .container {
+        margin-top: 120px;
+    }
+    
+    .blog-header h1 {
+        font-size: 2rem;
+    }
+}
 <body>
     <!-- 动态爱心背景 -->
     <div id="hearts-container"></div>
@@ -455,51 +464,52 @@
         <p>每一天都在努力克服社交恐惧症... (;´∀`)</p>
     </footer>
 
+    <!-- JavaScript代码将放在这里 -->
     <script>
-        // 创建动态爱心
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤';
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            document.getElementById('hearts-container').appendChild(heart);
-            
-            // 移除爱心元素以避免内存泄漏
-            setTimeout(() => {
-                heart.remove();
-            }, 7000);
-        }
+    // 创建动态爱心
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤';
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
+        heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        document.getElementById('hearts-container').appendChild(heart);
         
-        // 初始创建一些爱心
-        for (let i = 0; i < 15; i++) {
-            setTimeout(() => {
-                createHeart();
-            }, i * 300);
-        }
-        
-        // 定期创建新爱心
-        setInterval(createHeart, 500);
-        
-        // 添加一些交互效果
-        document.addEventListener('DOMContentLoaded', function() {
-            const tags = document.querySelectorAll('.tag');
-            tags.forEach(tag => {
-                tag.addEventListener('click', () => {
-                    tag.style.transform = 'scale(1.1)';
-                    setTimeout(() => {
-                        tag.style.transform = 'scale(1)';
-                    }, 300);
-                });
-            });
-            
-            // 模拟登录功能
-            const profileImg = document.querySelector('.profile-img');
-            profileImg.addEventListener('click', () => {
-                alert('波奇酱: 欢、欢迎来到我的个人空间...（小声）(ﾉ∀`*)');
+        // 移除爱心元素以避免内存泄漏
+        setTimeout(() => {
+            heart.remove();
+        }, 7000);
+    }
+    
+    // 初始创建一些爱心
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            createHeart();
+        }, i * 300);
+    }
+    
+    // 定期创建新爱心
+    setInterval(createHeart, 500);
+    
+    // 添加一些交互效果
+    document.addEventListener('DOMContentLoaded', function() {
+        const tags = document.querySelectorAll('.tag');
+        tags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                tag.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    tag.style.transform = 'scale(1)';
+                }, 300);
             });
         });
-    </script>
+        
+        // 模拟登录功能
+        const profileImg = document.querySelector('.profile-img');
+        profileImg.addEventListener('click', () => {
+            alert('波奇酱: 欢、欢迎来到我的个人空间...（小声）(ﾉ∀`*)');
+        });
+    });
+    </scrip>
 </body>
 </html>
