@@ -1,10 +1,386 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <title>LSF的个人网站</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>波奇酱的动漫小窝</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffb7d5, #ff85a2);
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(45deg, #ff6b9d, #ff4d87);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .title {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .title h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+        
+        /* 导航栏样式 */
+        nav {
+            background-color: #ff80ab;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        nav a:hover {
+            background-color: #ff4d87;
+            transform: translateY(-3px);
+        }
+        
+        /* 主内容区样式 */
+        .main-content {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .blog-section {
+            flex: 7;
+        }
+        
+        .sidebar {
+            flex: 3;
+        }
+        
+        /* 卡片样式 */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #ff80ab;
+        }
+        
+        .card h2 {
+            color: #ff4d87;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 文章样式 */
+        .post {
+            background: #fff5f8;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .post h3 {
+            color: #ff4d87;
+            margin-bottom: 10px;
+        }
+        
+        .post-date {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        /* 侧边栏样式 */
+        .profile {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background: #ffe6ee;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .tag:hover {
+            background: #ffc2d6;
+            cursor: pointer;
+        }
+        
+        /* 颜文字区域 */
+        .kaomoji {
+            font-size: 2rem;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #ff80ab;
+            color: white;
+        }
+        
+        /* 爱心样式 */
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 6s ease-in infinite;
+            opacity: 0.7;
+            font-size: 20px;
+            color: #ff4d87;
+            z-index: 100;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            nav a {
+                width: 80%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>欢迎来到我的网站！</h1>
-  <p>波奇牛肉酱˃ 𖥦 ˂ </p>
+    <!-- 动态爱心背景 -->
+    <div id="hearts-container"></div>
+    
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="https://i.pravatar.cc/150?img=5" alt="波奇酱" class="profile-img">
+                <div class="title">
+                    <h1>波奇酱的动漫小窝 (´• ω •`)ﾉ</h1>
+                    <p>欢迎来到我的粉色世界！</p>
+                </div>
+            </div>
+        </header>
+        
+        <nav>
+            <a href="#"><i class="fas fa-home"></i> 首页</a>
+            <a href="#"><i class="fas fa-feather"></i> 博客</a>
+            <a href="#"><i class="fas fa-images"></i> 相册</a>
+            <a href="#"><i class="fas fa-music"></i> 音乐</a>
+            <a href="#"><i class="fas fa-heart"></i> 收藏</a>
+            <a href="#"><i class="fas fa-user"></i> 关于我</a>
+        </nav>
+        
+        <div class="main-content">
+            <main class="blog-section">
+                <div class="card">
+                    <h2><i class="fas fa-pencil-alt"></i> 最新动态</h2>
+                    
+                    <div class="post">
+                        <h3>今天的吉他练习 ♪</h3>
+                        <div class="post-date">2023年10月25日</div>
+                        <p>练习了新的和弦进行，手指好痛...但是有进步！(>_<)</p>
+                        <p>希望下次演出不会紧张到晕倒...</p>
+                    </div>
+                    
+                    <div class="post">
+                        <h3>买了新的动漫周边 ☆</h3>
+                        <div class="post-date">2023年10月23日</div>
+                        <p>入手了超可爱的吉他拨片 collection！(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</p>
+                        <p>虽然花光了零用钱，但是值得！</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-fire"></i> 热门内容</h2>
+                    
+                    <div class="post">
+                        <h3>孤独摇滚演唱会心得</h3>
+                        <div class="post-date">2023年10月15日</div>
+                        <p>第一次在Livehouse演出，虽然紧张但超开心！</p>
+                        <p>观众们都很热情，没有我想象的那么可怕 (｡･ω･｡)</p>
+                    </div>
+                    
+                    <div class="post">
+                        <h3>我的吉他设备介绍</h3>
+                        <div class="post-date">2023年10月10日</div>
+                        <p>给大家看看我的装备清单~</p>
+                        <p>效果器、音箱、吉他...都是我的宝贝！</p>
+                    </div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="card profile">
+                    <h2><i class="fas fa-user"></i> 关于我</h2>
+                    <p>我是波奇酱，喜欢吉他、动漫和所有粉色的事物！</p>
+                    <p>有点社恐，但正在努力克服中... (;´∀`)</p>
+                    
+                    <div class="kaomoji">(´• ω •`)ﾉ</div>
+                    
+                    <div class="tags">
+                        <span class="tag">吉他</span>
+                        <span class="tag">动漫</span>
+                        <span class="tag">摇滚</span>
+                        <span class="tag">粉色</span>
+                        <span class="tag">社恐</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-heart"></i> 颜文字收藏</h2>
+                    <div class="kaomoji">(>_<)</div>
+                    <div class="kaomoji">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
+                    <div class="kaomoji">(｡･ω･｡)</div>
+                    <div class="kaomoji">(╯°□°）╯</div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-music"></i> 最近在听</h2>
+                    <ul>
+                        <li>青春Complex - 結束バンド</li>
+                        <li>転がる岩、君に朝が降る - 結束バンド</li>
+                        <li>フラッシュバッカー - 結束バンド</li>
+                        <li>Distortion!! - 結束バンド</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        
+        <footer>
+            <p>© 2023 波奇酱的动漫小窝 - 粉色幻想天地</p>
+            <p>每一天都要加油哦~ (๑•̀ㅂ•́)و✧</p>
+        </footer>
+    </div>
+
+    <script>
+        // 创建动态爱心
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.getElementById('hearts-container').appendChild(heart);
+            
+            // 移除爱心元素以避免内存泄漏
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+        
+        // 初始创建一些爱心
+        for (let i = 0; i < 15; i++) {
+            setTimeout(() => {
+                createHeart();
+            }, i * 300);
+        }
+        
+        // 定期创建新爱心
+        setInterval(createHeart, 500);
+        
+        // 添加一些交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const tags = document.querySelectorAll('.tag');
+            tags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    tag.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        tag.style.transform = 'scale(1)';
+                    }, 300);
+                });
+            });
+            
+            // 点击头像效果
+            const profileImg = document.querySelector('.profile-img');
+            profileImg.addEventListener('click', () => {
+                alert('波奇酱: 欢、欢迎来到我的博客...（小声）(ﾉ∀`*)');
+            });
+        });
+    </script>
 </body>
-</html>
+</html>               
