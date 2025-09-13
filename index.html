@@ -3,459 +3,764 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>波奇酱的动漫小窝</title>
+    <title>李师傅的技术与生活博客</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #112240;
+            --accent-color: #64ffda;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+            --card-bg: #172a45;
+            --border-color: #303C55;
+            --shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.7);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #ffb7d5, #ff85a2);
-            color: #333;
-            min-height: 100vh;
+            background-color: var(--primary-color);
+            color: var(--text-primary);
+            line-height: 1.6;
             overflow-x: hidden;
-            padding: 20px;
         }
-        
+
         .container {
-            max-width: 1000px;
+            width: 90%;
+            max-width: 1200px;
             margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
+            padding: 0 20px;
         }
-        
-        /* 头部样式 */
-        header {
-            background: linear-gradient(45deg, #ff6b9d, #ff4d87);
-            padding: 20px;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid white;
-            object-fit: cover;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-        }
-        
-        .profile-img:hover {
-            transform: scale(1.05);
-        }
-        
-        .title {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .title h1 {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-        }
-        
+
         /* 导航栏样式 */
-        nav {
-            background-color: #ff80ab;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
+        header {
+            background-color: var(--secondary-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
         }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            transition: all 0.3s;
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 10px;
         }
-        
-        nav a:hover {
-            background-color: #ff4d87;
-            transform: translateY(-3px);
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
         }
-        
-        /* 主内容区样式 */
-        .main-content {
+
+        .logo-subtext {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .nav-links {
             display: flex;
-            padding: 20px;
-            gap: 20px;
+            gap: 25px;
         }
-        
-        .blog-section {
-            flex: 7;
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
         }
-        
-        .sidebar {
-            flex: 3;
+
+        .nav-links a:hover {
+            color: var(--accent-color);
         }
-        
-        /* 卡片样式 */
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #4fd1c5;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* 主内容区样式 */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
             margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #ff80ab;
-            transition: transform 0.3s;
+            background: linear-gradient(45deg, var(--accent-color), #4fd1c5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* 卡片和内容区样式 */
+        .section-title {
+            font-size: 2rem;
+            margin: 60px 0 30px;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: var(--shadow);
+        }
+
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 35px -15px rgba(0, 0, 0, 0.8);
         }
-        
-        .card h2 {
-            color: #ff4d87;
-            margin-bottom: 15px;
+
+        .card-img {
+            height: 180px;
+            background: linear-gradient(45deg, #64ffda, #0a192f);
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
         }
-        
-        /* 文章样式 */
-        .post {
-            background: #fff5f8;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-        }
-        
-        .post:hover {
-            background: #ffebf1;
-        }
-        
-        .post h3 {
-            color: #ff4d87;
-            margin-bottom: 10px;
-        }
-        
-        .post-date {
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        /* 侧边栏样式 */
-        .profile {
-            text-align: center;
+
+        .card-content {
             padding: 20px;
         }
-        
-        .tags {
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
             margin-top: 15px;
         }
-        
-        .tag {
-            background: #ffe6ee;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-        
-        .tag:hover {
-            background: #ffc2d6;
-            cursor: pointer;
-            transform: scale(1.05);
-        }
-        
-        /* 颜文字区域 */
-        .kaomoji {
-            font-size: 2rem;
-            text-align: center;
-            margin: 15px 0;
-        }
-        
+
         /* 页脚样式 */
         footer {
+            background-color: var(--secondary-color);
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .footer-section p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
             text-align: center;
-            padding: 20px;
-            background: #ff80ab;
-            color: white;
+            color: var(--text-secondary);
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
         }
-        
-        /* 爱心样式 */
-        .heart {
-            position: absolute;
-            pointer-events: none;
-            animation: float 6s ease-in infinite;
-            opacity: 0.7;
-            font-size: 20px;
-            color: #ff4d87;
-            z-index: 100;
+
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 25, 47, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
         }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
         }
-        
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: var(--accent-color);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            color: var(--text-primary);
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
-            .main-content {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
                 flex-direction: column;
             }
-            
-            .header-content {
-                flex-direction: column;
-            }
-            
-            nav {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            nav a {
-                width: 80%;
-                justify-content: center;
-            }
         }
-        
-        /* 波奇酱特色元素 */
-        .guitar-emoji {
-            display: inline-block;
-            animation: rock 2s infinite alternate;
+
+        /* 访客登记表单 */
+        #guest-modal {
+            display: flex;
         }
-        
-        @keyframes rock {
-            0% { transform: rotate(-10deg); }
-            100% { transform: rotate(10deg); }
+
+        /* 管理员面板 */
+        .admin-panel {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 40px 0;
+            box-shadow: var(--shadow);
         }
-        
-        .bocchi-text {
-            background: linear-gradient(45deg, #ff6b9d, #ff4d87);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: bold;
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            color: var(--text-secondary);
+        }
+
+        /* 帖子样式 */
+        .post {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .post-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .post-content {
+            margin-bottom: 20px;
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .comments-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .comment {
+            background-color: var(--secondary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <!-- 动态爱心背景 -->
-    <div id="hearts-container"></div>
-    
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <img src="https://i.ibb.co/7y1v2zL/bocchi.png" alt="波奇酱" class="profile-img">
-                <div class="title">
-                    <h1>波奇酱的动漫小窝 <span class="guitar-emoji">🎸</span></h1>
-                    <p>欢迎来到我的粉色世界！(´• ω •`)ﾉ</p>
-                </div>
+    <!-- 访客登记模态框 -->
+    <div id="guest-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>欢迎访问李师傅的博客</h2>
             </div>
-        </header>
-        
-        <nav>
-            <a href="#"><i class="fas fa-home"></i> 首页</a>
-            <a href="#"><i class="fas fa-feather"></i> 博客</a>
-            <a href="#"><i class="fas fa-images"></i> 相册</a>
-            <a href="#"><i class="fas fa-music"></i> 音乐</a>
-            <a href="#"><i class="fas fa-heart"></i> 收藏</a>
-            <a href="#"><i class="fas fa-user"></i> 关于我</a>
-        </nav>
-        
-        <div class="main-content">
-            <main class="blog-section">
-                <div class="card">
-                    <h2><i class="fas fa-pencil-alt"></i> 最新动态</h2>
-                    
-                    <div class="post">
-                        <h3>今天的吉他练习 <span class="guitar-emoji">🎸</span></h3>
-                        <div class="post-date">2025年3月15日</div>
-                        <p>练习了新的和弦进行，手指好痛...但是有进步！(>_<)</p>
-                        <p>希望下次演出不会紧张到晕倒...</p>
-                    </div>
-                    
-                    <div class="post">
-                        <h3>买了新的动漫周边 ☆</h3>
-                        <div class="post-date">2025年3月12日</div>
-                        <p>入手了超可爱的吉他拨片 collection！(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</p>
-                        <p>虽然花光了零用钱，但是值得！</p>
-                    </div>
-                    
-                    <div class="post">
-                        <h3>乐队练习日记</h3>
-                        <div class="post-date">2025年3月8日</div>
-                        <p>今天和结束乐队一起练习了新曲目，大家都很努力！</p>
-                        <p>我...我虽然还是有点紧张，但比之前好多了！(｡･ω･｡)</p>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <h2><i class="fas fa-fire"></i> 热门内容</h2>
-                    
-                    <div class="post">
-                        <h3>孤独摇滚演唱会心得</h3>
-                        <div class="post-date">2025年2月28日</div>
-                        <p>第一次在Livehouse演出，虽然紧张但超开心！</p>
-                        <p>观众们都很热情，没有我想象的那么可怕 (｡･ω･｡)</p>
-                    </div>
-                    
-                    <div class="post">
-                        <h3>我的吉他设备介绍</h3>
-                        <div class="post-date">2025年2月20日</div>
-                        <p>给大家看看我的装备清单~</p>
-                        <p>效果器、音箱、吉他...都是我的宝贝！</p>
-                    </div>
-                    
-                    <div class="post">
-                        <h3>社恐如何上台表演</h3>
-                        <div class="post-date">2025年2月15日</div>
-                        <p>分享一些我克服舞台恐惧的方法...</p>
-                        <p>虽然还不是完全克服，但已经在进步了！</p>
-                    </div>
-                </div>
-            </main>
-            
-            <aside class="sidebar">
-                <div class="card profile">
-                    <h2><i class="fas fa-user"></i> 关于我</h2>
-                    <p>我是<span class="bocchi-text">后藤一里</span>，喜欢吉他、动漫和所有粉色的事物！</p>
-                    <p>有点社恐，但正在努力克服中... (;´∀`)</p>
-                    
-                    <div class="kaomoji">(´• ω •`)ﾉ</div>
-                    
-                    <div class="tags">
-                        <span class="tag">吉他</span>
-                        <span class="tag">动漫</span>
-                        <span class="tag">摇滚</span>
-                        <span class="tag">粉色</span>
-                        <span class="tag">社恐</span>
-                        <span class="tag">结束乐队</span>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <h2><i class="fas fa-heart"></i> 颜文字收藏</h2>
-                    <div class="kaomoji">(>_<)</div>
-                    <div class="kaomoji">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
-                    <div class="kaomoji">(｡･ω･｡)</div>
-                    <div class="kaomoji">(╯°□°）╯</div>
-                    <div class="kaomoji">(;´∀`)</div>
-                </div>
-                
-                <div class="card">
-                    <h2><i class="fas fa-music"></i> 最近在听</h2>
-                    <ul>
-                        <li><i class="fas fa-play-circle"></i> 青春Complex - 結束バンド</li>
-                        <li><i class="fas fa-play-circle"></i> 転がる岩、君に朝が降る - 結束バンド</li>
-                        <li><i class="fas fa-play-circle"></i> フラッシュバッカー - 結束バンド</li>
-                        <li><i class="fas fa-play-circle"></i> Distortion!! - 結束バンド</li>
-                        <li><i class="fas fa-play-circle"></i> あのバンド - 結束バンド</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h2><i class="fas fa-calendar"></i> 2025年日程</h2>
-                    <ul>
-                        <li>3月20日 - 乐队练习</li>
-                        <li>3月25日 - 录音室录制</li>
-                        <li>4月5日 - 线下Live演出</li>
-                        <li>4月15日 - 动漫展览会</li>
-                    </ul>
-                </div>
-            </aside>
+            <p>请在进入网站前登记您的信息</p>
+            <div class="form-group">
+                <label for="guest-name">您的姓名</label>
+                <input type="text" id="guest-name" placeholder="请输入您的姓名">
+            </div>
+            <div class="form-group">
+                <label for="guest-qq">您的QQ号</label>
+                <input type="text" id="guest-qq" placeholder="请输入您的QQ号">
+            </div>
+            <button class="btn btn-primary" onclick="enterSite()">进入网站</button>
         </div>
-        
-        <footer>
-            <p>© 2025 波奇酱的动漫小窝 - 粉色幻想天地</p>
-            <p>每一天都要加油哦~ (๑•̀ㅂ•́)و✧</p>
-        </footer>
     </div>
 
+    <!-- 网站头部 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="logo-text">LSF</div>
+                    <div class="logo-subtext">李师傅的博客</div>
+                </div>
+                <div class="nav-links">
+                    <a href="#home">首页</a>
+                    <a href="#tech">技术分享</a>
+                    <a href="#life">生活随笔</a>
+                    <a href="#posts">所有帖子</a>
+                    <a href="#about">关于我</a>
+                </div>
+                <div class="user-actions">
+                    <button class="btn btn-secondary" onclick="showLoginModal()">登录</button>
+                    <button class="btn btn-primary" onclick="showRegisterModal()">注册</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>探索技术与生活的奥秘</h1>
+                <p>这里是李师傅的个人博客，分享Web开发技术、编程心得和生活感悟。欢迎各位开发者交流讨论！</p>
+                <button class="btn btn-primary">最新文章</button>
+                <button class="btn btn-secondary">关于我</button>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-title">精选文章</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-img">
+                        <i class="fas fa-code fa-4x" style="color: var(--primary-color);"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>React性能优化指南</h3>
+                        <p>深入探讨React应用性能优化的各种技巧和最佳实践，帮助您构建更高效的Web应用。</p>
+                        <div class="card-footer">
+                            <span>2023-10-15</span>
+                            <a href="#" style="color: var(--accent-color);">阅读更多</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <i class="fas fa-server fa-4x" style="color: var(--primary-color);"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Node.js后端架构</h3>
+                        <p>如何构建可扩展的Node.js后端服务，微服务与 monolithic 架构的对比分析。</p>
+                        <div class="card-footer">
+                            <span>2023-09-28</span>
+                            <a href="#" style="color: var(--accent-color);">阅读更多</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <i class="fas fa-paint-brush fa-4x" style="color: var(--primary-color);"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>现代CSS布局技术</h3>
+                        <p>Flexbox、Grid和其他现代CSS布局技术的深入教程，附有实际案例和代码片段。</p>
+                        <div class="card-footer">
+                            <span>2023-09-10</span>
+                            <a href="#" style="color: var(--accent-color);">阅读更多</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-title">最新帖子</h2>
+            <div class="post">
+                <div class="post-header">
+                    <h3>使用Vue 3和TypeScript构建大型应用</h3>
+                    <div class="post-meta">发布于: 2023-10-20 | 作者: 李师傅</div>
+                </div>
+                <div class="post-content">
+                    <p>Vue 3和TypeScript的结合为构建大型前端应用提供了出色的开发体验。本文将分享一些实践经验和架构建议。</p>
+                    <p>首先，我们需要正确配置TypeScript以充分利用Vue 3的Composition API。使用defineComponent函数可以帮助我们获得更好的类型推断...</p>
+                </div>
+                <div class="post-footer">
+                    <div class="post-meta">15条评论 | 128次阅读</div>
+                    <a href="#" style="color: var(--accent-color);">阅读全文</a>
+                </div>
+                <div class="comments-section">
+                    <h4>评论</h4>
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span>张三</span>
+                            <span>2023-10-21 09:30</span>
+                        </div>
+                        <p>感谢分享，TypeScript的确大大提高了Vue项目的可维护性！</p>
+                    </div>
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span>李四</span>
+                            <span>2023-10-21 14:22</span>
+                        </div>
+                        <p>有没有关于状态管理的最佳实践？Vuex和Pinia应该如何选择？</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <h3>Web安全最佳实践</h3>
+                    <div class="post-meta">发布于: 2023-10-05 | 作者: 李师傅</div>
+                </div>
+                <div class="post-content">
+                    <p>在当今互联网环境中，Web安全至关重要。本文将介绍一些常见的安全漏洞和防范措施。</p>
+                    <p>从XSS攻击到CSRF保护，从内容安全策略到HTTPS强制实施，我们将全面探讨如何保护您的Web应用...</p>
+                </div>
+                <div class="post-footer">
+                    <div class="post-meta">9条评论 | 96次阅读</div>
+                    <a href="#" style="color: var(--accent-color);">阅读全文</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-title">管理员面板</h2>
+            <div class="admin-panel">
+                <h3>网站统计</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>1,248</h3>
+                        <p>总访问量</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>56</h3>
+                        <p>注册用户</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>42</h3>
+                        <p>文章数量</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>183</h3>
+                        <p>评论总数</p>
+                    </div>
+                </div>
+                <h3>最近访问</h3>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                <th style="padding: 12px; text-align: left;">用户名</th>
+                                <th style="padding: 12px; text-align: left;">QQ号</th>
+                                <th style="padding: 12px; text-align: left;">访问时间</th>
+                                <th style="padding: 12px; text-align: left;">停留时长</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px;">张三</td>
+                                <td style="padding: 12px;">123456789</td>
+                                <td style="padding: 12px;">2023-10-22 14:30</td>
+                                <td style="padding: 12px;">15分钟</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px;">李四</td>
+                                <td style="padding: 12px;">987654321</td>
+                                <td style="padding: 12px;">2023-10-22 13:15</td>
+                                <td style="padding: 12px;">8分钟</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px;">王五</td>
+                                <td style="padding: 12px;">456123789</td>
+                                <td style="padding: 12px;">2023-10-22 10:45</td>
+                                <td style="padding: 12px;">22分钟</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于博客</h3>
+                    <p>李师傅的个人技术博客，专注于Web开发技术和编程实践，分享工作与生活中的思考。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系我</h3>
+                    <p>Email: limaster@example.com</p>
+                    <p>QQ: 123456789</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <p><a href="#tech" style="color: var(--text-secondary);">技术文章</a></p>
+                    <p><a href="#life" style="color: var(--text-secondary);">生活随笔</a></p>
+                    <p><a href="#about" style="color: var(--text-secondary);">关于作者</a></p>
+                    <p><a href="#contact" style="color: var(--text-secondary);">联系我</a></p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 李师傅的博客 - ATRILimaster.github.io 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript代码 -->
     <script>
-        // 创建动态爱心
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤';
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            document.getElementById('hearts-container').appendChild(heart);
-            
-            // 移除爱心元素以避免内存泄漏
-            setTimeout(() => {
-                heart.remove();
-            }, 7000);
+        // 模拟本地存储
+        if (!localStorage.getItem('visitors')) {
+            localStorage.setItem('visitors', JSON.stringify([]));
         }
-        
-        // 初始创建一些爱心
-        for (let i = 0; i < 15; i++) {
-            setTimeout(() => {
-                createHeart();
-            }, i * 300);
+
+        if (!localStorage.getItem('posts')) {
+            localStorage.setItem('posts', JSON.stringify([
+                {
+                    id: 1,
+                    title: "使用Vue 3和TypeScript构建大型应用",
+                    author: "李师傅",
+                    date: "2023-10-20",
+                    content: "Vue 3和TypeScript的结合为构建大型前端应用提供了出色的开发体验。本文将分享一些实践经验和架构建议。\n\n首先，我们需要正确配置TypeScript以充分利用Vue 3的Composition API。使用defineComponent函数可以帮助我们获得更好的类型推断...",
+                    comments: [
+                        { user: "张三", date: "2023-10-21 09:30", content: "感谢分享，TypeScript的确大大提高了Vue项目的可维护性！" },
+                        { user: "李四", date: "2023-10-21 14:22", content: "有没有关于状态管理的最佳实践？Vuex和Pinia应该如何选择？" }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "Web安全最佳实践",
+                    author: "李师傅",
+                    date: "2023-10-05",
+                    content: "在当今互联网环境中，Web安全至关重要。本文将介绍一些常见的安全漏洞和防范措施。\n\n从XSS攻击到CSRF保护，从内容安全策略到HTTPS强制实施，我们将全面探讨如何保护您的Web应用...",
+                    comments: []
+                }
+            ]));
         }
-        
-        // 定期创建新爱心
-        setInterval(createHeart, 500);
-        
-        // 添加一些交互效果
-        document.addEventListener('DOMContentLoaded', function() {
-            const tags = document.querySelectorAll('.tag');
-            tags.forEach(tag => {
-                tag.addEventListener('click', () => {
-                    tag.style.transform = 'scale(1.1)';
-                    setTimeout(() => {
-                        tag.style.transform = 'scale(1)';
-                    }, 300);
-                });
-            });
+
+        // 进入网站
+        function enterSite() {
+            const name = document.getElementById('guest-name').value;
+            const qq = document.getElementById('guest-qq').value;
             
-            // 点击头像效果
-            const profileImg = document.querySelector('.profile-img');
-            profileImg.addEventListener('click', () => {
-                alert('波奇酱: 欢、欢迎来到我的博客...（小声）(ﾉ∀`*)');
-            });
-            
-            // 随机颜文字效果
-            const kaomojis = document.querySelectorAll('.kaomoji');
-            kaomojis.forEach(kaomoji => {
-                kaomoji.addEventListener('click', () => {
-                    const animations = ['bounce', 'spin', 'grow'];
-                    const randomAnim = animations[Math.floor(Math.random() * animations.length)];
-                    
-                    kaomoji.style.animation = `${randomAnim} 0.5s`;
-                    setTimeout(() => {
-                        kaomoji.style.animation = '';
-                    }, 500);
+            if (name && qq) {
+                // 保存访客信息
+                const visitors = JSON.parse(localStorage.getItem('visitors'));
+                visitors.push({
+                    name,
+                    qq,
+                    time: new Date().toLocaleString(),
+                    id: Date.now()
                 });
-            });
-        });
+                localStorage.setItem('visitors', JSON.stringify(visitors));
+                
+                // 隐藏模态框
+                document.getElementById('guest-modal').style.display = 'none';
+                
+                // 显示欢迎信息
+                alert(`欢迎 ${name}！感谢访问李师傅的博客！`);
+            } else {
+                alert('请输入您的姓名和QQ号');
+            }
+        }
+
+        // 显示登录模态框
+        function showLoginModal() {
+            alert('登录功能即将实现');
+        }
+
+        // 显示注册模态框
+        function showRegisterModal() {
+            alert('注册功能即将实现');
+        }
+
+        // 页面加载时显示访客登记
+        window.onload = function() {
+            // 实际应用中这里应该检查用户是否已经登记过
+            document.getElementById('guest-modal').style.display = 'flex';
+        };
     </script>
 </body>
 </html>
