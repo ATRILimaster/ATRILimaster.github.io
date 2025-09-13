@@ -1,10 +1,458 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <title>我的第一个网站</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零界者 / Zeronian - 黑客技术交流论坛</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background: #000;
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #001122 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, #002244 0%, transparent 50%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 导航 */
+        header {
+            border-bottom: 1px solid #00aaff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 3em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px #00aaff;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .logo-sub {
+            color: #00aaff;
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 1px solid #333;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            border-color: #00aaff;
+            color: #00aaff;
+        }
+        
+        /* 内容区 */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .posts {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .post {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 5px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .post:hover {
+            border-color: #00aaff;
+            transform: translateX(5px);
+        }
+        
+        .post-title {
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+        
+        .post-meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #002244;
+            color: #00aaff;
+            border-radius: 3px;
+            font-size: 0.8em;
+            margin-right: 5px;
+        }
+        
+        /* 发帖表单 */
+        .post-form {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #00aaff;
+            margin-bottom: 5px;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            background: #000;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 3px;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .btn {
+            background: #00aaff;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #0088cc;
+        }
+        
+        /* 侧边栏 */
+        .sidebar {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .widget-title {
+            color: #00aaff;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #222;
+        }
+        
+        .online-users {
+            list-style: none;
+        }
+        
+        .online-users li {
+            padding: 5px 0;
+            border-bottom: 1px solid #222;
+        }
+        
+        /* 响应式 */
+        @media (min-width: 768px) {
+            .main-content {
+                display: grid;
+                grid-template-columns: 1fr 300px;
+                gap: 20px;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <h1>欢迎来到我的网站！</h1>
-  <p>欢迎来到LSF的个人网站。</p>
+    <div class="container">
+        <header>
+            <div class="logo" onclick="showPage('home')">ZERONIAN</div>
+            <div class="logo-sub">零界者</div>
+            <nav>
+                <a href="#" class="nav-link active" data-page="home">首页</a>
+                <a href="#" class="nav-link" data-page="tech">技术讨论</a>
+                <a href="#" class="nav-link" data-page="tools">工具分享</a>
+                <a href="#" class="nav-link" data-page="create">发帖</a>
+                <a href="#" class="nav-link" data-page="profile">我的</a>
+            </nav>
+        </header>
+
+        <div class="main-content">
+            <div>
+                <!-- 首页 -->
+                <div id="home" class="page active">
+                    <div class="posts">
+                        <div class="post" onclick="showPostDetail(1)">
+                            <div class="post-title">SYN Flood防御机制深度分析</div>
+                            <div class="post-meta">作者: ShadowWalker · 2024-03-15 · 浏览: 2845</div>
+                            <div><span class="tag">网络安全</span><span class="tag">DDoS</span></div>
+                        </div>
+                        <div class="post" onclick="showPostDetail(2)">
+                            <div class="post-title">暗网爬虫开发实战指南</div>
+                            <div class="post-meta">作者: Phantom · 2024-03-14 · 浏览: 1567</div>
+                            <div><span class="tag">Python</span><span class="tag">爬虫</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 技术讨论 -->
+                <div id="tech" class="page">
+                    <h2>技术讨论区</h2>
+                    <div class="posts">
+                        <div class="post" onclick="showPostDetail(3)">
+                            <div class="post-title">零信任架构实践指南</div>
+                            <div class="post-meta">作者: Crypto · 浏览: 1988</div>
+                            <div><span class="tag">安全架构</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 工具分享 -->
+                <div id="tools" class="page">
+                    <h2>工具分享区</h2>
+                    <div class="posts">
+                        <div class="post" onclick="showPostDetail(4)">
+                            <div class="post-title">网络扫描工具集合</div>
+                            <div class="post-meta">作者: Scanner · 浏览: 1250</div>
+                            <div><span class="tag">工具</span><span class="tag">扫描</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 发帖页面 -->
+                <div id="create" class="page">
+                    <h2>发布新帖</h2>
+                    <div class="post-form">
+                        <div class="form-group">
+                            <label>标题</label>
+                            <input type="text" id="postTitle" placeholder="请输入标题">
+                        </div>
+                        <div class="form-group">
+                            <label>分类</label>
+                            <select id="postCategory">
+                                <option value="tech">技术讨论</option>
+                                <option value="tools">工具分享</option>
+                                <option value="news">资讯</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>内容</label>
+                            <textarea id="postContent" placeholder="请输入内容..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>标签（用逗号分隔）</label>
+                            <input type="text" id="postTags" placeholder="例如: 安全,Python,工具">
+                        </div>
+                        <button class="btn" onclick="createPost()">发布</button>
+                    </div>
+                </div>
+
+                <!-- 个人页面 -->
+                <div id="profile" class="page">
+                    <h2>个人中心</h2>
+                    <div class="post-form">
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <input type="text"
+value="Zero" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>权限等级</label>
+                            <input type="text" value="管理员" disabled>
+                        </div>
+                        <button class="btn" onclick="logout()">退出登录</button>
+                    </div>
+                </div>
+
+                <!-- 帖子详情 -->
+                <div id="post-detail" class="page">
+                    <h2 id="detail-title"></h2>
+                    <div class="post-meta" id="detail-meta"></div>
+                    <div id="detail-tags"></div>
+                    <div class="post-content" id="detail-content" style="margin: 20px 0; line-height: 1.6;"></div>
+                    <button class="btn" onclick="showPage('home')">返回</button>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="sidebar-widget">
+                    <div class="widget-title">在线用户 (6)</div>
+                    <ul class="online-users">
+                        <li>ShadowWalker</li>
+                        <li>Phantom</li>
+                        <li>Crypto</li>
+                        <li>Neo</li>
+                        <li>Morpheus</li>
+                        <li>Trinity</li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <div class="widget-title">论坛统计</div>
+                    <div style="color: #ccc;">
+                        <div>主题: 2,847</div>
+                        <div>帖子: 12,456</div>
+                        <div>在线: 6</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-widget">
+                    <div class="widget-title">快捷操作</div>
+                    <button class="btn" style="width: 100%; margin-bottom: 10px;" onclick="showPage('create')">发帖</button>
+                    <button class="btn" style="width: 100%; background: #333;" onclick="refreshData()">刷新</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面数据
+        const posts = {
+            1: {
+                title: "SYN Flood防御机制深度分析",
+                author: "ShadowWalker",
+                date: "2024-03-15",
+                views: 2845,
+                tags: ["网络安全", "DDoS", "防御"],
+                content: "深入探讨SYN Flood攻击原理及现代防御方案...\n\n## 攻击原理\nSYN Flood利用TCP三次握手漏洞...\n\n## 防御方案\n- SYN Cookie技术\n- 流量清洗\n- 速率限制"
+            },
+            2: {
+                title: "暗网爬虫开发实战指南",
+                author: "Phantom",
+                date: "2024-03-14",
+                views: 1567,
+                tags: ["Python", "爬虫", "Tor"],
+                content: "使用Python+Tor实现暗网数据采集...\n\n## 环境配置\n首先安装Tor和必要的Python库...\n\n## 注意事项\n- 法律风险\n- 道德边界\n- 匿名性保护"
+            }
+        };
+
+        // 页面切换
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+        }
+
+        // 显示帖子详情
+        function showPostDetail(postId) {
+            const post = posts[postId];
+            if (post) {
+                document.getElementById('detail-title').textContent = post.title;
+                document.getElementById('detail-meta').textContent = 
+                    `作者: ${post.author} · ${post.date} · 浏览: ${post.views}`;
+                
+                document.getElementById('detail-tags').innerHTML = 
+                    post.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                
+                document.getElementById('detail-content').textContent = post.content;
+                showPage('post-detail');
+            }
+        }
+
+        // 创建新帖
+        function createPost() {
+            const title =
+document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            const tags = document.getElementById('postTags').value;
+            
+            if (title && content) {
+                alert('帖子发布成功！');
+                document.getElementById('postTitle').value = '';
+                document.getElementById('postContent').value = '';
+                document.getElementById('postTags').value = '';
+                showPage('home');
+            } else {
+                alert('请填写标题和内容');
+            }
+        }
+
+        // 刷新数据
+        function refreshData() {
+            alert('数据已刷新');
+        }
+
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                alert('已退出登录');
+                showPage('home');
+            }
+        }
+
+        // 导航链接事件
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                showPage(page);
+            });
+        });
+
+        // 初始化控制台提示
+        console.log('%c[Zeronian System]%c 论坛系统已启动', 'color: #00aaff;', 'color: #ccc;');
+    </script>
 </body>
 </html>
