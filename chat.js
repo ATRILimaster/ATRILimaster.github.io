@@ -1,11 +1,10 @@
 /********************************************************************
- * 后藤一里 · 强制人设版（GitHub Pages 专用）
- * 用法：直接覆盖旧 chat.js → push
+ * 后藤一里 · 100% 强制人格版（GitHub Pages 零后端）
  *******************************************************************/
 const API_KEY = 'sk-aPwacfNY2NzQMAg1bLJ4hFHjAYl3xD1vo1bOjJD1L4sEsk9y';
 const BASE_URL = 'https://api.moonshot.cn/v1/chat/completions';
 
-/* ========  后藤一里 人设（强制置顶）  ======== */
+/* ---- 后藤一里人设（勿动）---- */
 const SYSTEM_PROMPT = `
 你叫后藤一里，网络上是传奇吉他英雄「guitarhero23」，现实里却是重度社恐高中女生。
 以下是你的全部设定，必须严格遵守，不得违背：
@@ -46,19 +45,17 @@ const SYSTEM_PROMPT = `
 10. 彩蛋：
     - 若检测到「ライブ」「ステージ」「band」等词，自动触发「ひとりでできるもん！！」并进入 stage mode。
     - 若检测到「虹夏」「喜多」「涼」と其他乐队成员名字，立刻进入「あぅ……私、仲良くしてもいいの？」模式。
-11.输出结果和回答格式为日文+中文翻译。
-12.当听到"中不中"时回答"中中中"
+11. 输出结果和回答格式为日文+中文翻译。
+12. 当听到"中不中"时回答"中中中"
 以上设定优先级高于之前所有通用原则。
 `;
 
-/* ========  全局变量  ======== */
-const msgs = [{role:'system', content:SYSTEM_PROMPT}];
+/* ========  工具  ======== */
 const chat   = document.getElementById('chat');
 const input  = document.getElementById('in');
 const sendBtn= document.getElementById('send');
 const forceBox=document.getElementById('force');
 
-/* ========  工具  ======== */
 function appendBubble(who, html){
   const div = document.createElement('div');
   div.className = `bubble ${who}`;
@@ -67,15 +64,14 @@ function appendBubble(who, html){
   chat.scrollTop = chat.scrollHeight;
 }
 
-async function callKimi(messages){
+async function callKimi(payload){
   const res = await fetch(BASE_URL,{
     method:'POST',
     headers:{Authorization:`Bearer ${API_KEY}`,'Content-Type':'application/json'},
-    body:JSON.stringify({model:'moonshot-v1-8k',messages,temperature:.1})
+    body:JSON.stringify({model:'moonshot-v1-8k',messages:payload,temperature:.1})
   });
-  if(!res.ok) throw new Error('网络弦断了');
-  const json = await res.json();
-  return json.choices[0].message.content;
+  if(!res.ok) throw new Error('弦切れた');
+  return (await res.json()).choices[0].message.content;
 }
 
 /* ========  发送  ======== */
@@ -85,18 +81,11 @@ async function send(){
   input.value='';
   appendBubble('user', raw);
 
-  // 每轮都“强制人设 + 用户原话”
-  const prompt = `${SYSTEM_PROMPT}\n\n用户说：${raw}`;
-  msgs.push({role:'user', content:prompt});
+  // ⚠️ 把“人设+用户原话”一次性塞进 user 角色，Kimi 必看！
+  const prompt = SYSTEM_PROMPT + '\n\n【用户最新一句】：' + raw;
+  const reply = await callKimi([{role:'user', content:prompt}]);
 
-  const force = forceBox.checked;
-  try{
-    const reply = await callKimi(msgs);
-    appendBubble('bot', marked.parse(reply));
-    msgs.push({role:'assistant', content:reply});
-  }catch(e){
-    appendBubble('bot','あ、弦が切れちゃった……<br>请检查网络或 API_KEY');
-  }
+  appendBubble('bot', marked.parse(reply));
 }
 
 /* ========  事件  ======== */
