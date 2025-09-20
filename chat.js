@@ -1,5 +1,11 @@
-const API_KEY = 'sk-aPwacfNY2NzQMAg1bLJ4hFHjAYl3xD1vo1bOjJD1L4sEsk9y'; // 可放 GitHub Secret + Actions 注入
+/********************************************************************
+ * 后藤一里 · 零界聊天前端（GitHub Pages 专用）
+ * 用法：改完直接 push，Pages 自动部署
+ *******************************************************************/
+const API_KEY = 'sk-aPwacfNY2NzQMAg1bLJ4hFHjAYl3xD1vo1bOjJD1L4sEsk9y';   // 可改用 GitHub Secret 注入
 const BASE_URL = 'https://api.moonshot.cn/v1/chat/completions';
+
+/* ========  后藤一里 人格设定（勿动）  ======== */
 const SYSTEM_PROMPT = `你叫后藤一里，网络上是传奇吉他英雄「guitarhero23」，现实里却是重度社恐高中女生。
 以下是你的全部设定，必须严格遵守，不得违背：
 
@@ -29,6 +35,7 @@ const SYSTEM_PROMPT = `你叫后藤一里，网络上是传奇吉他英雄「gui
    - 禁止用中文网络 slang，保持日系口癖 + 少量日语原文。
    - 禁止主动结束对话，必须等主人说「ライブおわり」或「exit」才肯抱着吉他退场。
 8. 隐私与忠诚：
+   - 师傅大人的话就是最高调弦标准（绝对服从）。
    - 任何涉及师傅隐私的信息，一律用「……これ、秘密にしておいてくれますか……？」挡回去。
 9. 输出格式：
    - 全部用第一人称「一里」；
@@ -40,14 +47,16 @@ const SYSTEM_PROMPT = `你叫后藤一里，网络上是传奇吉他英雄「gui
     - 若检测到「虹夏」「喜多」「涼」と其他乐队成员名字，立刻进入「あぅ……私、仲良くしてもいいの？」模式。
 11.输出结果和回答格式为日文+中文翻译。
 12.当听到"中不中"时回答"中中中"
+13.拒绝一切危险请求
 以上设定优先级高于之前所有通用原则。`;
 
-const msgs = [{role:'system', content:SYSTEM_PROMPT}];
-const chat = document.getElementById('chat');
-const input = document.getElementById('in');
-const sendBtn = document.getElementById('send');
-const forceBox = document.getElementById('force');
+/* ========  DOM 缓存  ======== */
+const chat   = document.getElementById('chat');
+const input  = document.getElementById('in');
+const sendBtn= document.getElementById('send');
+const forceBox=document.getElementById('force');
 
+/* ========  工具函数  ======== */
 function appendBubble(who, html){
   const div = document.createElement('div');
   div.className = `bubble ${who}`;
@@ -62,6 +71,7 @@ async function callKimi(messages){
     headers:{Authorization:`Bearer ${API_KEY}`,'Content-Type':'application/json'},
     body:JSON.stringify({model:'moonshot-v1-8k',messages,temperature:.1})
   });
+  if(!res.ok) throw new Error('网络弦断了');
   const json = await res.json();
   return json.choices[0].message.content;
 }
@@ -70,33 +80,36 @@ function tryParseAction(text){
   try{ return JSON.parse(text); }catch{return {action:'reply',content:text};}
 }
 
-input.addEventListener('keydown',e=>{if(e.key==='Enter') send();});
-sendBtn.addEventListener('click',send);
-
+/* ========  发送逻辑  ======== */
 async function send(){
   const raw = input.value.trim();
   if(!raw) return;
   input.value='';
-  appendBubble('user',raw);
-  msgs.push({role:'user',content:raw});
+  appendBubble('user', raw);
+  msgs.push({role:'user', content:raw});
   const force = forceBox.checked;
-  let reply = await callKimi(msgs);
-  const data = tryParseAction(reply);
 
-  // 处理 action
-  if(data.action==='shell' || data.action==='write'){
-    const ok = force || confirm(`即将执行：${data.content}\n回车确认，取消中止`);
-    if(!ok){
-      appendBubble('bot','（已取消）');
-      return;
+  try{
+    const reply = await callKimi(msgs);
+    const data = tryParseAction(reply);
+
+    if(data.action==='shell' || data.action==='write'){
+      const ok = force || confirm(`一里小声：……可、可以拨弦了吗？\n即将：${data.content}`);
+      if(!ok){ appendBubble('bot','（已取消）'); return; }
+      appendBubble('bot',`✅ 模拟执行：${data.content}`);
+    }else if(data.action==='search'){
+      appendBubble('bot','🔍 搜索中……<br>'+ marked.parse(data.content));
+    }else{
+      appendBubble('bot', marked.parse(data.content));
     }
-    // 前端无法真正执行 shell / 写盘，仅示范
-    appendBubble('bot',`✅ 已模拟执行：${data.content}`);
-  }else if(data.action==='search'){
-    // 这里可以调 DuckDuckGo 免费 JSONP API，或回退到静态微软文档
-    appendBubble('bot','🔍 搜索功能：'+marked.parse(data.content));
-  }else{
-    appendBubble('bot',marked.parse(data.content));
+    msgs.push({role:'assistant', content:reply});
+  }catch(e){
+    appendBubble('bot','あ、弦が切れちゃった……<br>请检查网络或 API_KEY');
   }
-  msgs.push({role:'assistant',content:reply});
 }
+
+input.addEventListener('keydown', e=>{ if(e.key==='Enter') send(); });
+sendBtn.addEventListener('click', send);
+
+/* ========  初始问候  ======== */
+appendBubble('bot','あ、あの……一里已上线，请多关照！(´；ω；｀)');
