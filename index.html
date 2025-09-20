@@ -5,6 +5,7 @@
   <title>零界⊕AI</title>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <link rel="stylesheet" href="style.css"/>
+  <!-- Marked 解析库 -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
@@ -20,11 +21,12 @@
   </main>
 
   <footer>
-    <input id="in" placeholder="请输入消息，回车发送" autocomplete="off"/>
+    <input id="in" placeholder="请输入消息，回车发送" autocomplete="off" autofocus />
     <button id="send">发送</button>
     <label><input id="force" type="checkbox">直接开始 / force</label>
   </footer>
 
+  <!-- 仅一次引入，使用 module 防止重复执行 -->
   <script src="chat.js" type="module"></script>
 </body>
 </html>
