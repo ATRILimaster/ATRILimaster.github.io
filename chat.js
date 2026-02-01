@@ -108,11 +108,11 @@ function appendBubble(who, html){
   chat.scrollTop = chat.scrollHeight;
 }
 
-async function callKimi(payload){
+async function callQwen(payload){
   const res = await fetch(BASE_URL,{
     method:'POST',
     headers:{Authorization:`Bearer ${API_KEY}`,'Content-Type':'application/json'},
-    body:JSON.stringify({model:'moonshot-v1-8k',messages:payload,temperature:.1})
+    body:JSON.stringify({model:'Qwen/Qwen2.5-7B-Instruct',messages:payload,temperature:temperature})
   });
   if(!res.ok) throw new Error('弦切れた');
   return (await res.json()).choices[0].message.content;
@@ -125,9 +125,9 @@ async function send(){
   input.value='';
   appendBubble('user', raw);
 
-  // ⚠️ 把“人设+用户原话”一次性塞进 user 角色，Kimi 必看！
+  // ⚠️ 把“人设+用户原话”一次性塞进 user 角色，Qwen 必看！
   const prompt = SYSTEM_PROMPT + '\n\n【用户最新一句】：' + raw;
-  const reply = await callKimi([{role:'user', content:prompt}]);
+  const reply = await callQen([{role:'user', content:prompt}]);
 
   appendBubble('bot', marked.parse(reply));
 }
